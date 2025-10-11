@@ -1,0 +1,8 @@
+# Secrets - NEVER commit this file!
+.env
+
+# Virtual Environment - Teammates will create their own
+venv/
+
+# Python cache files
+__pycache__/
