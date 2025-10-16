@@ -6,6 +6,7 @@ jest.mock('next/navigation', () => ({
   useRouter: () => ({
     push: jest.fn(),
   }),
+  usePathname: () => '/dashboard',
 }))
 
 // Mock Clerk hooks
@@ -35,6 +36,7 @@ describe('DashboardSidebar', () => {
     // Check if navigation items are present
     expect(screen.getByText('Dashboard')).toBeInTheDocument()
     expect(screen.getByText('Projects')).toBeInTheDocument()
+    expect(screen.getByText('AI Requirements')).toBeInTheDocument()
     expect(screen.getByText('Analytics')).toBeInTheDocument()
     expect(screen.getByText('Team')).toBeInTheDocument()
     expect(screen.getByText('Calendar')).toBeInTheDocument()
