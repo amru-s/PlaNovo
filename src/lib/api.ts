@@ -1,6 +1,6 @@
 // API configuration for PlaNovo
 const API_BASE_URL = process.env.NODE_ENV === 'production' 
-  ? process.env.NEXT_PUBLIC_API_URL || 'https://your-railway-app.railway.app'
+  ? process.env.NEXT_PUBLIC_API_URL || 'https://planovo-backend.onrender.com'
   : 'http://localhost:8000';
 
 export const API_ENDPOINTS = {

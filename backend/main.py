@@ -25,6 +25,7 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:3000",  # Local development
         "https://planovo.vercel.app",  # Production frontend
+        "https://planovo-backend.onrender.com",  # Backend on Render
     ],
     allow_credentials=True,
     allow_methods=["*"],
