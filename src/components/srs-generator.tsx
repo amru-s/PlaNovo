@@ -9,7 +9,6 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { API_ENDPOINTS } from "@/lib/api";
 import jsPDF from "jspdf";
-import html2canvas from "html2canvas";
 
 interface SrsResponse {
   srs_document: string;
@@ -253,7 +252,7 @@ export function SrsGenerator() {
           }
         } else {
           // Regular paragraph text - clean up markdown formatting
-          let cleanText = line.replace(/\*\*/g, ''); // Remove bold markdown for simplicity
+          const cleanText = line.replace(/\*\*/g, ''); // Remove bold markdown for simplicity
           
           if (cleanText.trim()) {
             const wrapped = pdf.splitTextToSize(cleanText, maxLineWidth);

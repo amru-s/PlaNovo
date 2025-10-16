@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+
 import { useRouter, usePathname } from "next/navigation"
 import { Home, BarChart3, Users, Settings, FileText, Calendar, Sparkles } from "lucide-react"
 import { useUser, UserButton } from "@clerk/nextjs"
