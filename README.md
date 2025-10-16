@@ -536,4 +536,4 @@ DELETE /api/tasks/{id}           # Delete task
 
 **PlaNovo** - Transforming project management with AI-powered automation.
 
-*Last updated: December 2024*
+*Last updated: December 2025*
