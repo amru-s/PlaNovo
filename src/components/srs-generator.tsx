@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Loader2, FileText, Sparkles } from "lucide-react";
 import ReactMarkdown from "react-markdown";
+import { API_ENDPOINTS } from "@/lib/api";
 
 interface SrsResponse {
   srs_document: string;
@@ -30,7 +31,7 @@ export function SrsGenerator() {
     setSrsDocument("");
 
     try {
-      const response = await fetch("http://localhost:8000/api/srs/generate", {
+      const response = await fetch(API_ENDPOINTS.SRS_GENERATE, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
