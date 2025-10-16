@@ -1,12 +1,14 @@
 "use client"
 
 import { useState } from "react"
-import { Home, BarChart3, Users, Settings, FileText, Calendar } from "lucide-react"
+import { useRouter, usePathname } from "next/navigation"
+import { Home, BarChart3, Users, Settings, FileText, Calendar, Sparkles } from "lucide-react"
 import { useUser, UserButton } from "@clerk/nextjs"
 
 const navigationItems = [
   { name: "Dashboard", icon: Home, href: "/dashboard", active: true },
   { name: "Projects", icon: FileText, href: "/projects", active: false },
+  { name: "AI Requirements", icon: Sparkles, href: "/srs", active: false },
   { name: "Analytics", icon: BarChart3, href: "/analytics", active: false },
   { name: "Team", icon: Users, href: "/team", active: false },
   { name: "Calendar", icon: Calendar, href: "/calendar", active: false },
@@ -14,8 +16,25 @@ const navigationItems = [
 ]
 
 export function DashboardSidebar() {
-  const [activeItem, setActiveItem] = useState("Dashboard")
+  const router = useRouter()
+  const pathname = usePathname()
   const { user, isLoaded } = useUser()
+
+  // Determine active item based on current path
+  const getActiveItem = () => {
+    if (pathname === "/dashboard") return "Dashboard"
+    if (pathname === "/srs") return "AI Requirements"
+    if (pathname === "/projects") return "Projects"
+    if (pathname === "/analytics") return "Analytics"
+    if (pathname === "/team") return "Team"
+    if (pathname === "/calendar") return "Calendar"
+    if (pathname === "/settings") return "Settings"
+    return "Dashboard"
+  }
+
+  const handleNavigation = (item: typeof navigationItems[0]) => {
+    router.push(item.href)
+  }
 
   // Get user display name
   const getUserDisplayName = () => {
@@ -37,9 +56,9 @@ export function DashboardSidebar() {
           {navigationItems.map((item) => (
             <li key={item.name}>
               <button
-                onClick={() => setActiveItem(item.name)}
+                onClick={() => handleNavigation(item)}
                 className={`w-full flex items-center px-4 py-3 text-sm font-syne rounded-lg transition-colors ${
-                  activeItem === item.name
+                  getActiveItem() === item.name
                     ? "bg-planovo-primary text-planovo-dark font-medium"
                     : "text-white/80 hover:text-white hover:bg-white/10"
                 }`}

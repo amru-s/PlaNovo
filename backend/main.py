@@ -5,6 +5,7 @@ from sqlmodel import Session
 
 from database import get_session
 from webhooks import handle_webhook_event
+from srs_generator import SrsRequest, generate_srs_document
 
 # Load environment variables
 load_dotenv()
@@ -52,8 +53,14 @@ async def test_database(session: Session = Depends(get_session)):
     """Test database connection"""
     try:
         # Simple database test
-        session.execute("SELECT 1")
-        return {"status": "ok", "message": "Database connection successful"}
+        from sqlalchemy import text
+        result = session.execute(text("SELECT 1 as test"))
+        test_value = result.fetchone()
+        return {
+            "status": "ok", 
+            "message": "Database connection successful",
+            "test_result": test_value[0] if test_value else None
+        }
     except Exception as e:
         return {
             "status": "error",
@@ -67,6 +74,18 @@ async def clerk_webhook(
 ):
     """Handle Clerk webhook events"""
     return handle_webhook_event(request, session)
+
+
+@app.post("/api/srs/generate")
+async def generate_srs_endpoint(request: SrsRequest):
+    """
+    Generate Software Requirements Specification (SRS) document from feature idea
+    
+    This endpoint uses Google Gemini AI to convert a high-level feature request
+    into a comprehensive, structured SRS document with functional and 
+    non-functional requirements.
+    """
+    return await generate_srs_document(request.featureIdea)
 
 
 if __name__ == "__main__":
